@@ -4,5 +4,5 @@ from books import models
 
 
 class BooksViewSet(viewsets.ModelViewSet):
-    serializers_class = serializers.BooksSerializer
+    serializer_class = serializers.BooksSerializer
     queryset = models.Books.objects.all() 
