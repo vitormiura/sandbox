@@ -16,7 +16,7 @@ Pipfile.lock
 env3.*
 env
 docs_build
-FastAPI\fastapi-test\venv
+venv
 docs.zip
 archive.zip
 
