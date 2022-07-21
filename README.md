@@ -1,1 +1,1 @@
-# Libraby WebSite made in Django
+# Library API made w/ Django
