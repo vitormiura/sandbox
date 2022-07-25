@@ -29,6 +29,7 @@ import tkinter
 from io import BytesIO
 
 from . import Image
+from ._deprecate import deprecate
 
 # --------------------------------------------------------------------
 # Check for Tkinter interface hooks
@@ -183,10 +184,12 @@ class PhotoImage:
         :param im: A PIL image. The size must match the target region.  If the
                    mode does not match, the image is converted to the mode of
                    the bitmap image.
-        :param box: A 4-tuple defining the left, upper, right, and lower pixel
-                    coordinate. See :ref:`coordinate-system`. If None is given
-                    instead of a tuple, all of the image is assumed.
+        :param box: Deprecated. This parameter will be removed in Pillow 10
+                    (2023-07-01).
         """
+
+        if box is not None:
+            deprecate("The box parameter", 10, None)
 
         # convert to blittable
         im.load()

@@ -76,10 +76,8 @@ class BmpImageFile(ImageFile.ImageFile):
         read, seek = self.fp.read, self.fp.seek
         if header:
             seek(header)
-        file_info = {}
         # read bmp header size @offset 14 (this is part of the header size)
-        file_info["header_size"] = i32(read(4))
-        file_info["direction"] = -1
+        file_info = {"header_size": i32(read(4)), "direction": -1}
 
         # -------------------- If requested, read header at a specific position
         # read the rest of the bmp header, without its size
@@ -323,7 +321,8 @@ class BmpRleDecoder(ImageFile.PyDecoder):
                     # align to 16-bit word boundary
                     if self.fd.tell() % 2 != 0:
                         self.fd.seek(1, os.SEEK_CUR)
-        self.set_as_raw(bytes(data), ("P", 0, self.args[-1]))
+        rawmode = "L" if self.mode == "L" else "P"
+        self.set_as_raw(bytes(data), (rawmode, 0, self.args[-1]))
         return -1, 0
 
 
