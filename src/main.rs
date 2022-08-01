@@ -1,3 +1,5 @@
+mod guessing_game;
+
 // fn lit_ops(){
 //   println!("1 + 2 = {}", 1u32 + 2);
 //   println!("1 - 2 = {}", 1i32 - 2);
@@ -44,5 +46,6 @@ fn tuples(){
 fn main(){
   // println!("Hello world!")
   // lit_ops()
-  tuples()
+  // tuples()
+  guessing_game::main()
 }
