@@ -7,6 +7,6 @@ edition = "2021"
 
 [dependencies]
 
-[[bin]]
-name = "rust-learning"
-path = "main.rs"
+# [[bin]]
+# name = "rust-learning"
+# path = "main.rs"
