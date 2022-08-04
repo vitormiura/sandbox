@@ -7,7 +7,7 @@ api = Api(app)
 class Rappers(Resource):
     def get(self):
         return{
-            'Names':['YBN Nahmir','Chief Keef', 'Bobby Shmurda']
+            'Names':['YBN Nahmir','Chief Keef', 'Bobby Shmurda', '21 Savage']
         }
 
 api.add_resource(Rappers, '/')
