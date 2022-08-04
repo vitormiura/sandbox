@@ -1,0 +1,1 @@
+# repo to learn how to dockerize my apps
