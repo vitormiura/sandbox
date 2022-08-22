@@ -6,6 +6,7 @@ export const typeDefs = gql`
         title: String
         description: String
         url: String
+        category: String
         imageUrl: String
         users: [String]
     }
