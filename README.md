@@ -1,3 +1,3 @@
 # incepta 
 
-a scaffolded project to help me learning prisma.
+project involving prisma, graphql and next to help me learning prisma.
