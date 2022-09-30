@@ -1,9 +1,5 @@
 # build output
 dist/
-.output/
-
-# bosch dependencies
-package-lock.json
 
 # dependencies
 node_modules/
