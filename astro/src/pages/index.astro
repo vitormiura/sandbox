@@ -1,7 +1,15 @@
 ---
 import BaseLayout from "../layout/BaseLayout.astro";
+const title = "Home";
 ---
 
-<BaseLayout>
-  <h1>oiii</h1>
+<BaseLayout title={title}>
+  <h1>{title}</h1>
+
+  <h2>Links</h2>
+  <a href="/contact">contact</a>
+
+  <h2>Images</h2>
+  <img src="images/eba.png" width="300px" height="300px" />
+  <!-- <img src={Astro.resolve('../images/eba.png')} width="300px" height="300px" /> DEPRECATED!!!!!!!! -->
 </BaseLayout>
