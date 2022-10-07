@@ -1,9 +1,16 @@
 ---
 import BaseLayout from "../layout/BaseLayout.astro";
 const title = "Components"
-import { SpecialButton } from "../components/SpecialButtons/SpecialButton.jsx";
+import SpecialButton from "../components/SpecialButtons/SpecialButton.jsx";
+import SpecialButtonTwo from "../components/SpecialButtons/SpecialButtonTwo.svelte"
 ---
 
 <BaseLayout title={title}>
   <h1>{title}</h1>
+  <SpecialButton client:load>react component!</SpecialButton>
+  <SpecialButtonTwo client:load>svelte component!</SpecialButtonTwo>
+  <special-button>lit component</special-button>
+  <script>
+    import MyModule from "../components/SpecialButtons/special-button.ts";
+  </script>
 </BaseLayout>
