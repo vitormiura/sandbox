@@ -8,6 +8,9 @@
 # testing
 /coverage
 
+# bosch proxy
+/package-lock.json
+
 # next.js
 /.next/
 /out/
