@@ -5,7 +5,10 @@ import Link from "next/link";
 import { trpc } from "../utils/trpc";
 
 const Home: NextPage = () => {
-  const hello = trpc.example.hello.useQuery({ text: "from tRPC" });
+
+const pleaseSub = trpc.subscribe.sub.useQuery({
+  text: "bololo haha"
+})
 
   return (
     <>
@@ -44,7 +47,7 @@ const Home: NextPage = () => {
             </Link>
           </div>
           <p className="text-2xl text-white">
-            {hello.data ? hello.data.greeting : "Loading tRPC query..."}
+            {pleaseSub.data ? pleaseSub.data.bololohaha + " frau frau hoho" : 'loading...'}
           </p>
         </div>
       </main>
