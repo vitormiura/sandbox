@@ -24,6 +24,9 @@ next-env.d.ts
 .DS_Store
 *.pem
 
+# bosch proxy
+/package-lock.json
+
 # debug
 npm-debug.log*
 yarn-debug.log*
