@@ -22,16 +22,18 @@ const t = initTRPC.create({
     },
 });
 
-const createAnimeScheme = z.object({
+const createMkyScheme = z.object({
     name: z.string(),
-    year: z.string()
+    age: z.number(),
+    specie: z.string(),
+    photoUrl: z.string()
 })
 
 const appRouter = t.router({
-    allAnime: t.procedure.query(async () => {
+    allMky: t.procedure.query(async () => {
         try {
-            const allAnimes = await prisma.anime.findMany()
-            return { allAnimes }
+            const allMky = await prisma.monkey.findMany()
+            return { allMky }
         } catch (error) {
             throw new TRPCError({
                 code: "INTERNAL_SERVER_ERROR",
@@ -40,18 +42,20 @@ const appRouter = t.router({
             })
         }
     }),
-    createAnime: t.procedure
-    .input(createAnimeScheme)
+    createMonkey: t.procedure
+    .input(createMkyScheme)
     .mutation(async ({ input }) => {
         try {
-            const createAnime = await prisma.anime.create({
+            const createMonkey = await prisma.monkey.create({
                 data: {
                     name: input.name,
-                    year: input.year
+                    age: input.age,
+                    specie: input.specie,
+                    photoUrl: input.photoUrl
                 }
             })
             return {
-                createAnime
+                createMonkey
             }
         } catch (error) {
             throw new TRPCError({
@@ -61,42 +65,39 @@ const appRouter = t.router({
             })
         }
     }),
-    example: t.procedure.query(() => {
-        return "zimbas"
-    })
 });
 
 export type AppRouter = typeof appRouter;
 
-app.use(
-    '/trpc',
-    trpcExpress.createExpressMiddleware({
-      router: appRouter,
-    }),
-);
+// app.use(
+//     '/trpc',
+//     trpcExpress.createExpressMiddleware({
+//       router: appRouter,
+//     }),
+// );
 
-app.get("/", (req, res) => {
-    return res.json({ message: "Deu certo" })
-})
+// app.get("/", (req, res) => {
+//     return res.json({ message: "Deu certo" })
+// })
 
-app.get("/anime", async (req, res) => {
-    const animes = await prisma.anime.findMany()
-    return res.json({ message: "Deu certo", animes })
-})
+// app.get("/anime", async (req, res) => {
+//     const animes = await prisma.anime.findMany()
+//     return res.json({ message: "Deu certo", animes })
+// })
 
-app.post("/anime", async (req, res) => {
-    console.log("body da request:", req.body);
-    try {
-        const anime = createAnimeScheme.parse(req.body);
-        const createdAnime = await prisma.anime.create({
-            data: anime
-        })
-        return res.json({ message: "Deu certo", anime: createdAnime })
-    } catch (error) {
-        return res.status(400).json({ message: "Deu errado", error })
-    }
-})
+// app.post("/anime", async (req, res) => {
+//     console.log("body da request:", req.body);
+//     try {
+//         const anime = createAnimeScheme.parse(req.body);
+//         const createdAnime = await prisma.anime.create({
+//             data: anime
+//         })
+//         return res.json({ message: "Deu certo", anime: createdAnime })
+//     } catch (error) {
+//         return res.status(400).json({ message: "Deu errado", error })
+//     }
+// })
 
-app.listen(3000, () => {
-    console.log("Server running in port 3000")
-})
+// app.listen(3000, () => {
+//     console.log("Server running in port 3000")
+// })

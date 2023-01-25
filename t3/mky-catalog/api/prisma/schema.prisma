@@ -10,10 +10,10 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Anime {
+model Monkey {
   id       String @id @default(cuid())
   name     String
-  age      String
+  age      Int
   specie   String
   photoUrl String
 }
