@@ -11,7 +11,9 @@ datasource db {
 }
 
 model Anime {
-  id   String @id  @default(cuid())
-  name String
-  year String
+  id       String @id @default(cuid())
+  name     String
+  age      String
+  specie   String
+  photoUrl String
 }
