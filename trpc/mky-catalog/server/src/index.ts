@@ -1,70 +1,89 @@
-import express from 'express'
-import { z } from 'zod'
-import { prisma } from './utils/prisma';
-import cors from 'cors'
-import * as trpcExpress from '@trpc/server/adapters/express';
-import superjson from 'superjson'
-import { initTRPC, TRPCError } from '@trpc/server';
+import express from "express";
+import { z } from "zod";
+import { prisma } from "./utils/prisma";
+import cors from "cors";
+import * as trpcExpress from "@trpc/server/adapters/express";
+import superjson from "superjson";
+import { initTRPC, TRPCError } from "@trpc/server";
 
 const app = express();
 
-app.use(express.json())
-app.use(cors({
-    origin: [
-        "http://localhost:5173"
-    ]
-}))
+app.use(express.json());
+app.use(
+  cors({
+    origin: ["http://localhost:5173"],
+  })
+);
 
 const t = initTRPC.create({
-    transformer: superjson,
-    errorFormatter({ shape }) {
-      return shape;
-    },
+  transformer: superjson,
+  errorFormatter({ shape }) {
+    return shape;
+  },
 });
 
 const createMkyScheme = z.object({
-    name: z.string(),
-    age: z.number(),
-    specie: z.string(),
-    photoUrl: z.string()
-})
+  id: z.string(),
+  name: z.string(),
+  age: z.number(),
+  specie: z.string(),
+  photoUrl: z.string(),
+});
 
 const appRouter = t.router({
-    allMky: t.procedure.query(async () => {
-        try {
-            const allMky = await prisma.monkey.findMany()
-            return { allMky }
-        } catch (error) {
-            throw new TRPCError({
-                code: "INTERNAL_SERVER_ERROR",
-                cause: error,
-                message: "Failed to get all animes"
-            })
-        }
-    }),
-    createMonkey: t.procedure
+  allMky: t.procedure.query(async () => {
+    try {
+      const allMky = await prisma.monkey.findMany();
+      return { allMky };
+    } catch (error) {
+      throw new TRPCError({
+        code: "INTERNAL_SERVER_ERROR",
+        cause: error,
+        message: "Failed to get all animes",
+      });
+    }
+  }),
+  createMonkey: t.procedure
     .input(createMkyScheme)
     .mutation(async ({ input }) => {
-        try {
-            const createMonkey = await prisma.monkey.create({
-                data: {
-                    name: input.name,
-                    age: input.age,
-                    specie: input.specie,
-                    photoUrl: input.photoUrl
-                }
-            })
-            return {
-                createMonkey
-            }
-        } catch (error) {
-            throw new TRPCError({
-                code: "INTERNAL_SERVER_ERROR",
-                cause: error,
-                message: "Failed to create anime"
-            })
-        }
+      try {
+        const createMonkey = await prisma.monkey.create({
+          data: {
+            name: input.name,
+            age: input.age,
+            specie: input.specie,
+            photoUrl: input.photoUrl,
+          },
+        });
+        return {
+          createMonkey,
+        };
+      } catch (error) {
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          cause: error,
+          message: "Failed to create anime",
+        });
+      }
     }),
+  edit: t.procedure.input(createMkyScheme).mutation(async ({ input }) => {
+    const { id, ...editFields } = input;
+    try {
+      const editedMonkey = await prisma.monkey.update({
+        where: { id },
+        data: { ...editFields },
+      });
+      return {
+        editedMonkey,
+      };
+    } catch (error) {
+      throw new TRPCError({
+        code: "INTERNAL_SERVER_ERROR",
+        cause: error,
+        message: "Failed to edit manager on database",
+      });
+    }
+  }),
 });
 
 export type AppRouter = typeof appRouter;
