@@ -39,7 +39,7 @@ const appRouter = t.router({
       throw new TRPCError({
         code: "INTERNAL_SERVER_ERROR",
         cause: error,
-        message: "Failed to get all animes",
+        message: "Failed to get all monkeys",
       });
     }
   }),
@@ -62,11 +62,11 @@ const appRouter = t.router({
         throw new TRPCError({
           code: "INTERNAL_SERVER_ERROR",
           cause: error,
-          message: "Failed to create anime",
+          message: "Failed to create a new monkey",
         });
       }
     }),
-  edit: t.procedure.input(createMkyScheme).mutation(async ({ input }) => {
+  editMonkey: t.procedure.input(createMkyScheme).mutation(async ({ input }) => {
     const { id, ...editFields } = input;
     try {
       const editedMonkey = await prisma.monkey.update({
@@ -80,7 +80,23 @@ const appRouter = t.router({
       throw new TRPCError({
         code: "INTERNAL_SERVER_ERROR",
         cause: error,
-        message: "Failed to edit manager on database",
+        message: "Failed to edit monkey on database",
+      });
+    }
+  }),
+  deleteMonkey: t.procedure
+  .input(createMkyScheme)
+  .mutation(async ({ input }) => {
+    try {
+      const deleteMonkey = await prisma.monkey.delete({
+        where: { id: input.id },
+      });
+      return { deleteMonkey };
+    } catch (error) {
+      throw new TRPCError({
+        code: "INTERNAL_SERVER_ERROR",
+        cause: error,
+        message: "Failed to delete monkey on database",
       });
     }
   }),
