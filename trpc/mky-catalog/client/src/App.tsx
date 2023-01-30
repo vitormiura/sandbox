@@ -11,7 +11,7 @@ function App() {
   );
 
   const [name, setName] = useState("");
-  const [age, setAge] = useState(0);
+  const [age, setAge] = useState(Number);
   const [specie, setSpecie] = useState("");
   const [photoUrl, setphotoUrl] = useState("");
 
@@ -36,7 +36,7 @@ function App() {
           onChange={(e) => setName(e.target.value)}
         />
         <input
-          type="text"
+          type="number"
           placeholder="69"
           value={age}
           onChange={(e) => setAge(e.target.valueAsNumber)}

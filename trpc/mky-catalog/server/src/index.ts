@@ -110,12 +110,12 @@ const appRouter = t.router({
 
 export type AppRouter = typeof appRouter;
 
-// app.use(
-//     '/trpc',
-//     trpcExpress.createExpressMiddleware({
-//       router: appRouter,
-//     }),
-// );
+app.use(
+    '/trpc',
+    trpcExpress.createExpressMiddleware({
+      router: appRouter,
+    }),
+);
 
 // app.get("/", (req, res) => {
 //     return res.json({ message: "Deu certo" })
@@ -139,6 +139,6 @@ export type AppRouter = typeof appRouter;
 //     }
 // })
 
-// app.listen(3000, () => {
-//     console.log("Server running in port 3000")
-// })
+app.listen(3000, () => {
+    console.log("Server running in port 3000")
+})
