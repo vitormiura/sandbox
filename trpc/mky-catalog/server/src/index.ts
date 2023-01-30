@@ -23,6 +23,12 @@ const t = initTRPC.create({
 });
 
 const createMkyScheme = z.object({
+  name: z.string(),
+  age: z.number(),
+  specie: z.string(),
+  photoUrl: z.string(),
+});
+const editMonkey = z.object({
   id: z.string(),
   name: z.string(),
   age: z.number(),
@@ -66,7 +72,7 @@ const appRouter = t.router({
         });
       }
     }),
-  editMonkey: t.procedure.input(createMkyScheme).mutation(async ({ input }) => {
+  editMonkey: t.procedure.input(editMonkey).mutation(async ({ input }) => {
     const { id, ...editFields } = input;
     try {
       const editedMonkey = await prisma.monkey.update({
@@ -85,7 +91,7 @@ const appRouter = t.router({
     }
   }),
   deleteMonkey: t.procedure
-  .input(createMkyScheme)
+  .input(editMonkey)
   .mutation(async ({ input }) => {
     try {
       const deleteMonkey = await prisma.monkey.delete({
