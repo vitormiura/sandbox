@@ -1,0 +1,19 @@
+version: '3.9'
+
+services:
+  rappers-service:
+    build: ./api
+    volumes:
+      - ./api:/usr/src/app
+    ports:
+      - 5001:80
+
+  website:
+    image: php:apache
+    volumes:
+      - ./web:/var/www/html
+    ports:
+      - 5000:80
+    depends_on:
+      - rappers-service
+    
