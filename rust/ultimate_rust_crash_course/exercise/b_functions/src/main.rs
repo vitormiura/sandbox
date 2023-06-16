@@ -29,8 +29,7 @@ fn main() {
 }
 
 fn volume(x: i32, y: i32, z:i32) -> i32 {
-    let calc: i32 = x * y * z;
-    calc
+    x * y * z
 }
 
 fn area_of(x: i32, y: i32) -> i32 {
