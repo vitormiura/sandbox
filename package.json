@@ -30,7 +30,11 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@lucia-auth/adapter-prisma": "^3.0.1",
+		"@lucia-auth/sveltekit": "^0.6.11",
 		"@picocss/pico": "^1.5.10",
-		"@prisma/client": "^5.1.1"
+		"@prisma/client": "^5.1.1",
+		"lucia": "^2.4.1",
+		"lucia-auth": "^1.8.0"
 	}
 }
