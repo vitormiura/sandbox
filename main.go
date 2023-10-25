@@ -8,6 +8,8 @@ import (
 )
 
 type Film struct {
+	Title    string
+	Director string
 }
 
 func main() {
@@ -15,7 +17,14 @@ func main() {
 
 	h1 := func(w http.ResponseWriter, r *http.Request) {
 		tmpl := template.Must(template.ParseFiles("index.html"))
-		tmpl.Execute(w, nil)
+		films := map[string][]Film{
+			"Films":{
+				{Title: "Planeta dos Macacos 1", Director: "Quentin Tarantino"},
+				{Title: "Planeta dos Macacos 2", Director: "Quentin Tarantino"},
+				{Title: "Planeta dos Macacos 3", Director: "Quentin Tarantino"},
+			},
+		}
+		tmpl.Execute(w, films)
 	}
 	http.HandleFunc("/", h1)
 
