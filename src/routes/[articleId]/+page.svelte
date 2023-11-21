@@ -1,8 +1,8 @@
 <script lang="ts">
-	import type { PageData } from './$types';
+	import type { PageData } from './$types'
 
-	export let data: PageData;
-	$: ({ article } = data);
+	export let data: PageData
+	$: ({ article } = data)
 </script>
 
 <form action="?/updateArticle" method="POST">
